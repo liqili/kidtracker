@@ -91,10 +91,10 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
             <id>with-frontend</id>
             <build>
                 <plugins>
-                    <plugin>
+                    <!--<plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.6.0</version>
+                        <version>3.1.0</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -106,6 +106,46 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
                                     <arguments>
                                         <argument>start</argument>
                                     </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>-->
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <version>1.6</version>
+                        <configuration>
+<!--                            <workingDirectory>src/main/angular5/tourism</workingDirectory>-->
+                            <!-- where to install npm -->
+                            <installDirectory>${project.build.directory}/install</installDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>install-node-and-npm</id>
+                                <goals>
+                                    <goal>install-node-and-npm</goal>
+                                </goals>
+                                <configuration>
+                                    <nodeVersion>v10.24.0</nodeVersion>
+                                    <npmVersion>5.8.0</npmVersion>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>npm-install</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>install</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>npm run build</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>start</arguments>
                                 </configuration>
                             </execution>
                         </executions>
